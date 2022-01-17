@@ -12,7 +12,7 @@ if __name__ == '__main__':
     cfg.merge_from_file('./color_symbol.yaml')
     cfg.freeze()
     model = StyleGAN(resolution=128, num_channels=3, latent_size=512, gen_args=cfg.gen, dis_args=cfg.dis)
-    model.gen.load('./checkpoint/generator_last.pkl')
+    model.gen.load('./checkpoint/generator.pkl')
     model.gen.eval()
     sourceA_inputs = jt.random([25, model.latent_size], 'float32', 'normal').stop_grad()
     sourceB_inputs = jt.random([25, model.latent_size], 'float32', 'normal').stop_grad()
@@ -31,4 +31,4 @@ if __name__ == '__main__':
         for i in range(500):
             mixing = (B_middle * i + A_middle * (500 - i)) / 500
             imgs = model.gen.g_synthesis(mixing, 5, 1)
-            jt.save_image(imgs, './style_mixing/%03d.jpg' % (i), nrow=5, normalize=True, scale_each=False, pad_value=128, padding=1)
+            jt.save_image(imgs, './interp/%03d.jpg' % (i), nrow=5, normalize=True, scale_each=False, pad_value=128, padding=1)

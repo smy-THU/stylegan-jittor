@@ -12,7 +12,7 @@ if __name__ == '__main__':
     cfg.merge_from_file('./color_symbol.yaml')
     cfg.freeze()
     model = StyleGAN(resolution=128, num_channels=3, latent_size=512, gen_args=cfg.gen, dis_args=cfg.dis)
-    model.gen.load('./checkpoint/generator_last.pkl')
+    model.gen.load('./checkpoint/generator.pkl')
     model.gen.eval()
     input = jt.random([16, model.latent_size], 'float32', 'normal').stop_grad()
     with jt.no_grad():
