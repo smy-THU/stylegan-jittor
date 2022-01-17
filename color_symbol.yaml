@@ -1,0 +1,12 @@
+output_dir: './train_output'
+data_path: './color_symbol_7k'
+epochs: [20, 40, 40, 40, 80, 80]
+gen:
+  latent_size: 512
+  mapping_layers: 4
+  blur_filter: [1, 2, 1]
+  truncation_psi: 0.7
+  truncation_cutoff: 8
+dis:
+  use_wscale: True
+  blur_filter: [1, 2, 1]
